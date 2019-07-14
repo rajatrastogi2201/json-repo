@@ -8,6 +8,8 @@ public interface IPlantDAO {
 	
 	public List<Plant> fetchPlants();
 	
+	public List<Plant> fetchPlants(Plant plant);
+	
 	public void insert(Plant plant) throws Exception;
 	
 	public void update(Plant plant) throws Exception;

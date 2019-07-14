@@ -38,7 +38,17 @@ public class PlantService implements IPlantService {
 		}
 		plantDAO.insert(plant);
 	}
-
+	
+	/**
+	 * Return a list of plants that match the given search criteria
+	 * @param plant a parameter that contains the search criteria
+	 * @return
+	 */
+	@Override
+	public List<Plant> fetchPlants(Plant plant) {
+		List<Plant> plants = plantDAO.fetchPlants(plant);
+		return plants;
+	}
 	public IPlantDAO getPlantDAO() {
 		return plantDAO;
 	}

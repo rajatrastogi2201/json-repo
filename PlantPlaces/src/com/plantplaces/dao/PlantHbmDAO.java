@@ -9,21 +9,28 @@ import org.hibernate.Session;
 import com.plantplaces.dto.Plant;
 
 public class PlantHbmDAO implements IPlantDAO {
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Plant> fetchPlants() {
-		
-		
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		//create the query
+		Query query = session.createQuery("from Plant");
+	
+		@SuppressWarnings("rawtypes")
+		List list = query.list();
+		List<Plant> plants = Collections.checkedList(list, Plant.class);
+		return plants;
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<Plant> fetchPlants(Plant plant){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		//create the query
-		Query query = session.createQuery("from Plant where common = :common");
-		//query.setParameter("common", plant.getCommon());
-		query.setProperties(plant);
+		Query query = session.createQuery("from Plant where common like :common");
+		query.setParameter("common", "%" + plant.getCommon() + "%");
+		//query.setProperties(plant);
 		@SuppressWarnings("rawtypes")
 		List list = query.list();
 		List<Plant> plants = Collections.checkedList(list, Plant.class);
